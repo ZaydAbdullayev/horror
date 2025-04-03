@@ -1,6 +1,6 @@
 export async function generateImages(apiKey, artStyle, prompt) {
     try {
-        const msg = `Create a simple horror comic with 4 connected scenes in ${artStyle} style that follow a continuous story about ${prompt}`;
+        const msg = `Create 4 connected horror comic panels in ${artStyle} style about ${prompt}: 1.setting, 2.rising tension, 3.climax, 4.resolution.`;
         const response = await fetch(
             "https://api.openai.com/v1/images/generations",
             {

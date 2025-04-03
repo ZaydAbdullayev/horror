@@ -11,6 +11,7 @@ import music from "./assets/music.mp3";
 import bat_sound from "./assets/bats-sound.mp3";
 import { generateImages } from "./context/fetch.service";
 import { examples } from "./context/datas";
+import { TbLoader2 } from "react-icons/tb";
 
 const art_types = [
   "Cartoon",
@@ -207,7 +208,7 @@ export const App = () => {
               </div>
             </div>
             <button className="generate" onClick={() => generateImage()}>
-              Generate
+              Generate <TbLoader2 className="loader" />
             </button>
 
             <div className="result">
