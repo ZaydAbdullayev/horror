@@ -320,7 +320,8 @@
   }
 }
 
-.examples {
+.examples,
+.play-space {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -393,12 +394,9 @@
   }
 }
 
-
-/* .grid-gallery-item:hover img {
-  transform: scale(1.1);
-  filter: blur(0px);
-  z-index: -1;
-} */
+.play-space {
+  height: 70dvh;
+}
 
 .home-footer {
   color: #fff7;

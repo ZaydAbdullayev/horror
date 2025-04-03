@@ -261,6 +261,10 @@ export const App = () => {
             ))}
           </div>
         </div>
+
+        <div className="play-space">
+          <h3>Play Space</h3>
+        </div>
       </div>
       <footer className="home-footer">
         <p>© 2023 Your Company. All rights reserved.</p>
