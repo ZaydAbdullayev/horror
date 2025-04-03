@@ -35,7 +35,6 @@ export const App = () => {
   const [result, setResult] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
   const [testKey, setTestKey] = useState(false);
   const [audio] = useState(new Audio(music));
   const [isMusicStarted, setIsMusicStarted] = useState(false);
