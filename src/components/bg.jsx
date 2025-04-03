@@ -14,6 +14,6 @@ export const Bg = () => {
         <img src={boo} alt="boo" className="boo-1" />
         <img src={boo} alt="boo" className="boo-2" />
       </div>
-    </div>  
+    </div>
   );
 };

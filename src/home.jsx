@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./home.css";
 import "./components/index.scss";
 import logo from "./assets/logo.gif";
@@ -7,6 +7,10 @@ import witcher from "./assets/witcher.gif";
 import bats from "./assets/bats.gif";
 import spider from "./assets/spider.gif";
 import { BiSolidCopy } from "react-icons/bi";
+import music from "./assets/music.mp3";
+import bat_sound from "./assets/bats-sound.mp3";
+import { generateImages } from "./context/fetch.service";
+import { examples } from "./context/datas";
 
 const art_types = [
   "Cartoon",
@@ -33,11 +37,62 @@ export const App = () => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [testKey, setTestKey] = useState(false);
+  const [audio] = useState(new Audio(music));
+  const [isMusicStarted, setIsMusicStarted] = useState(false);
+  const [batSound] = useState(new Audio(bat_sound));
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text).then(() => {
       alert("Copied to clipboard");
     });
+  };
+
+  useEffect(() => {
+    const playMusic = () => {
+      if (!isMusicStarted) {
+        audio.loop = true;
+        audio.volume = 0.1;
+        audio.play().catch((err) => console.log("Autoplay blocked:", err));
+        setIsMusicStarted(true);
+      }
+    };
+
+    document.addEventListener("click", playMusic, { once: true });
+
+    return () => document.removeEventListener("click", playMusic);
+  }, [isMusicStarted, audio]);
+
+  const playBatSound = () => {
+    batSound.volume = 0.1;
+    batSound.play().catch((err) => console.log("Autoplay blocked:", err));
+    setTimeout(() => {
+      batSound.pause();
+    }, 2000); // Play for 5 seconds
+  };
+
+  const generateImage = async () => {
+    if (!apiKey) {
+      alert("Please enter your OpenAI API key");
+      return;
+    }
+    setLoading(true);
+    setError("");
+    setResult("");
+    try {
+      const response = await generateImages(apiKey, artType, scene);
+      console.log(response);
+      setResult(response);
+
+      // if (!response.ok) {
+      //   throw new Error("Failed to generate image");
+      // }
+
+      // const data = await response.json();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -58,7 +113,16 @@ export const App = () => {
           <div className="links">
             <GlitchButton>Telegram</GlitchButton>
             <GlitchButton>X</GlitchButton>
-            <GlitchButton>Connect Wallet</GlitchButton>
+            <GlitchButton
+              onclick={() =>
+                window.open(
+                  "https://phantom.com/learn/crypto-101/what-is-a-crypto-wallet#how-do-crypto-wallets-work",
+                  "_blank"
+                )
+              }
+            >
+              Connect Wallet
+            </GlitchButton>
           </div>
           <img src={spider} alt="Spider" className="spider" />
           <img src={spider} alt="Spider" className="spider _2" />
@@ -67,13 +131,20 @@ export const App = () => {
           <h2>Crete your own horror novel</h2>
           <img src={witcher} alt="Witcher" className="witcher" />
           <div className="_content">
+            <img src={spider} alt="Spider" className="spider" />
+            <img src={spider} alt="Spider" className="spider _2" />
             <div className="api-key">
               <div>
                 Your OpenAI API Key:{" "}
                 <div>
                   {!testKey ? (
                     <>
-                      <span onClick={() => setTestKey(true)}>
+                      <span
+                        onClick={() => {
+                          setTestKey(true);
+                          playBatSound();
+                        }}
+                      >
                         Need a test key ?
                       </span>{" "}
                     </>
@@ -83,7 +154,7 @@ export const App = () => {
                       <label className="token">
                         <span>
                           {token.slice(0, 4)}
-                          ........................................
+                          .................
                           {token.slice(-4)}
                         </span>
                         <BiSolidCopy onClick={() => copyToClipboard(token)} />
@@ -97,7 +168,8 @@ export const App = () => {
                 placeholder="sk-..."
                 className="api-key-input"
                 onChange={(e) => {
-                  localStorage.setItem("apiKey", e.target.value);
+                  setApiKey(e.target.value);
+                  sessionStorage.setItem("apiKey", e.target.value);
                 }}
               />
             </div>
@@ -113,7 +185,8 @@ export const App = () => {
                 placeholder="Write your scene here..."
                 className="scene-input"
                 onChange={(e) => {
-                  localStorage.setItem("scene", e.target.value);
+                  setScene(e.target.value);
+                  sessionStorage.setItem("scene", e.target.value);
                 }}
               ></textarea>
             </label>
@@ -134,16 +207,27 @@ export const App = () => {
                 ))}
               </div>
             </div>
-            <button className="generate">Generate</button>
+            <button className="generate" onClick={() => generateImage()}>
+              Generate
+            </button>
 
             <div className="result">
-              <h3>Generated Image</h3>
+              <h3>Generated Image:</h3>
               {loading && <p>Loading...</p>}
               {error && <p className="error">{error}</p>}
-              {result && (
+              {result?.length ? (
                 <div className="result-content">
-                  <img src={result} alt="Generated" className="result-image" />
+                  {result.map((img, index) => (
+                    <img
+                      key={index}
+                      src={img}
+                      alt={`Generated ${index}`}
+                      className="generated-image"
+                    />
+                  ))}
                 </div>
+              ) : (
+                ""
               )}
             </div>
 
@@ -155,6 +239,27 @@ export const App = () => {
               <p>Join our community and get access to exclusive features</p>
               <p>Limited time offer!</p>
             </div>
+          </div>
+        </div>
+
+        <div className="examples">
+          <h3>Example Comics Library</h3>
+          <div className="grid-gallery">
+            {examples.map((videoId) => (
+              <a
+                href={`https://www.youtube.com/watch?v=${videoId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="grid-gallery-item"
+                key={videoId}
+              >
+                <img
+                  src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+                  alt="YouTube Thumbnail"
+                  className="w-full h-auto"
+                />
+              </a>
+            ))}
           </div>
         </div>
       </div>
