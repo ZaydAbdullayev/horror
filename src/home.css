@@ -271,9 +271,17 @@
     color: #fff7;
     font-size: 1.2rem;
     font-weight: 500;
+    gap: 10px;
 
     img {
-      width: calc(100% / 2);
+      width: calc(100% / 2 - 20px);
+      height: auto;
+      object-fit: cover;
+    }
+  }
+  .single {
+    img {
+      width: 100% !important;
       height: auto;
       object-fit: cover;
     }
@@ -353,10 +361,12 @@
   position: relative;
   overflow: hidden;
   border-radius: 6px;
-  background-color: rgba(255, 255, 255, 0.1);
   color: #fff7;
   font-size: 1.2rem;
   font-weight: 500;
+  transition: box-shadow 0.3s ease-in-out;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 
   /* Öğelere farklı boyutlar vererek zig-zag oluştur */
   &:nth-child(1) {
@@ -387,6 +397,11 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease-in-out;
+    border: 10px solid transparent;
+  }
+
+  &:hover {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.171);
   }
 
   &:hover img {

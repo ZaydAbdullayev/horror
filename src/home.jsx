@@ -163,7 +163,7 @@ export const App = () => {
                 </div>
               </div>
               <input
-                type="text"
+                type="password"
                 placeholder="sk-..."
                 className="api-key-input"
                 onChange={(e) => {
@@ -215,7 +215,7 @@ export const App = () => {
               {loading && <p>Loading...</p>}
               {error && <p className="error">{error}</p>}
               {result?.length ? (
-                <div className="result-content">
+                <div className={`result-content ${result.length === 1 ? "single" : ""}`}>
                   {result.map((img, index) => (
                     <img
                       key={index}
