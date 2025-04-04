@@ -374,9 +374,6 @@
   position: relative;
   overflow: hidden;
   border-radius: 6px;
-  color: #fff7;
-  font-size: 1.2rem;
-  font-weight: 500;
   transition: box-shadow 0.3s ease-in-out;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
@@ -420,6 +417,17 @@
   &:hover img {
     transform: scale(1.1);
   }
+}
+
+.play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 0 5px #fff7);
+  font-size: 30px;
+  color: #fff;
+  z-index: 999;
 }
 
 .play-space {

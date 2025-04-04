@@ -1,8 +1,12 @@
+import example1 from '../assets/example-1.jpg'
+import example2 from '../assets/example-2.jpg'
+
 export const examples = [
-    'Rs3t326SyY4',
-    '7bThTTac6Hk',
-    'HVPJkwXPUTY',
-    'wW70p9o64_o',
-    'o3LqFpCCn0g',
-    'vhNLkZyRYkA',
+    { videoId: 'Rs3t326SyY4', type: 'video', img: '' },
+    { videoId: '', type: 'img', img: example1 },
+    { videoId: '7bThTTac6Hk', type: 'video', img: '' },
+    { videoId: '', type: 'img', img: example2 },
+    { videoId: 'wW70p9o64_o', type: 'video', img: '' },
+    { videoId: 'o3LqFpCCn0g', type: 'video', img: '' },
+    { videoId: 'vhNLkZyRYkA', type: 'video', img: '' },
 ]

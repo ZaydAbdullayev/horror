@@ -12,6 +12,7 @@ import bat_sound from "./assets/bats-sound.mp3";
 import { generateImages } from "./context/fetch.service";
 import { examples } from "./context/datas";
 import { TbLoader2 } from "react-icons/tb";
+import { FaPlay } from "react-icons/fa";
 
 const art_types = [
   "Cartoon",
@@ -208,7 +209,7 @@ export const App = () => {
               </div>
             </div>
             <button className="generate" onClick={() => generateImage()}>
-              Generate <TbLoader2 className="loader" />
+              Generate {loading && <TbLoader2 className="loader" />}
             </button>
 
             <div className="result">
@@ -216,7 +217,11 @@ export const App = () => {
               {loading && <p>Loading...</p>}
               {error && <p className="error">{error}</p>}
               {result?.length ? (
-                <div className={`result-content ${result.length === 1 ? "single" : ""}`}>
+                <div
+                  className={`result-content ${
+                    result.length === 1 ? "single" : ""
+                  }`}
+                >
                   {result.map((img, index) => (
                     <img
                       key={index}
@@ -245,21 +250,32 @@ export const App = () => {
         <div className="examples">
           <h3>Example Comics Library</h3>
           <div className="grid-gallery">
-            {examples.map((videoId) => (
-              <a
-                href={`https://www.youtube.com/watch?v=${videoId}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="grid-gallery-item"
-                key={videoId}
-              >
-                <img
-                  src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
-                  alt="YouTube Thumbnail"
-                  className="w-full h-auto"
-                />
-              </a>
-            ))}
+            {examples.map((item, index) =>
+              item.type === "video" ? (
+                <a
+                  href={`https://www.youtube.com/watch?v=${item.videoId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="grid-gallery-item"
+                  key={item.videoId}
+                >
+                  <FaPlay className="play-icon" />
+                  <img
+                    src={`https://img.youtube.com/vi/${item.videoId}/hqdefault.jpg`}
+                    alt="YouTube Thumbnail"
+                    className="w-full h-auto"
+                  />
+                </a>
+              ) : (
+                <div className="grid-gallery-item" key={index}>
+                  <img
+                    src={item.img}
+                    alt="Example comics"
+                    className="w-full h-auto"
+                  />
+                </div>
+              )
+            )}
           </div>
         </div>
 
