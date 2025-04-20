@@ -73,16 +73,43 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px 50px;
+  gap: 20px;
 
   h2 {
     inline-size: 100%;
   }
 }
 
-.witcher {
-  height: 300px;
-  object-fit: cover;
+.covers {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  .cover {
+    width: 100%;
+    border-radius: 30px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+
+    div {
+      margin-top: -40px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 10px 15px 15px;
+      gap: 10px;
+    }
+  }
 }
 
 ._content {
@@ -357,14 +384,11 @@
   }
 }
 
-/* .grid-gallery
-.grid-gallery-item */
-
 .grid-gallery {
   width: 90%;
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3 sütun düzeni */
-  grid-auto-rows: 300px; /* Her öğenin yüksekliği en az 300px olacak */
+  grid-auto-rows: 220px; /* Her öğenin yüksekliği en az 300px olacak */
   gap: 10px;
   margin: 20px 0;
 }
@@ -380,22 +404,25 @@
 
   /* Öğelere farklı boyutlar vererek zig-zag oluştur */
   &:nth-child(1) {
-    grid-column: span 2; /* İlk öğeyi geniş yap */
+    grid-row: span 2; /* İlk öğeyi uzun yap (yüksekliği 600px olur) */
   }
 
   &:nth-child(2) {
-    grid-row: span 2; /* İkinci öğeyi uzun yap (yüksekliği 600px olur) */
+    grid-column: span 2; /* İlk öğeyi geniş yap */
+    grid-row: span 2; /* İlk öğeyi uzun yap (yüksekliği 600px olur) */
   }
 
   &:nth-child(3) {
     grid-column: span 2;
+    grid-row: span 2; /* Üçüncü öğeyi geniş ve uzun yap (yüksekliği 600px olur) */
   }
 
   &:nth-child(4) {
     grid-row: span 2;
   }
 
-  &:nth-child(5) {
+  &:nth-child(6) {
+    grid-row: span 2;
     grid-column: span 2;
   }
 
@@ -408,6 +435,7 @@
     object-fit: cover;
     transition: transform 0.3s ease-in-out;
     border: 10px solid transparent;
+    filter: drop-shadow(0 0 2px #bf6bff8a);
   }
 
   &:hover {

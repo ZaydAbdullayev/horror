@@ -10,9 +10,10 @@ import { BiSolidCopy } from "react-icons/bi";
 import music from "./assets/music.mp3";
 import bat_sound from "./assets/bats-sound.mp3";
 import { generateImages } from "./context/fetch.service";
-import { examples } from "./context/datas";
+import { covers, examples } from "./context/datas";
 import { TbLoader2 } from "react-icons/tb";
 import { FaPlay } from "react-icons/fa";
+import { RiTwitterXFill } from "react-icons/ri";
 
 const art_types = [
   "Cartoon",
@@ -112,17 +113,12 @@ export const App = () => {
             Join our journey into the unknown and create your own horror novel
           </p>
           <div className="links">
-            <GlitchButton>Telegram</GlitchButton>
-            <GlitchButton>X</GlitchButton>
             <GlitchButton
               onclick={() =>
-                window.open(
-                  "https://phantom.com/learn/crypto-101/what-is-a-crypto-wallet#how-do-crypto-wallets-work",
-                  "_blank"
-                )
+                window.open("https://x.com/toonnightm81334", "_blank")
               }
             >
-              Connect Wallet
+              Follow <RiTwitterXFill />
             </GlitchButton>
           </div>
           <img src={spider} alt="Spider" className="spider" />
@@ -130,7 +126,22 @@ export const App = () => {
         </div>
         <div className="home-content">
           <h2>Crete your own horror novel</h2>
-          <img src={witcher} alt="Witcher" className="witcher" />
+          <div className="covers">
+            {covers.map((cover, index) => (
+              <div className="cover" key={index}>
+                <img src={cover.img} alt="Cover" className="cover-image" />
+                <div className="cover-info">
+                  <h3>{cover.title}</h3>
+                  <p>{cover.description}</p>
+                  <GlitchButton
+                    onclick={() => window.open("https://youtube.com", "_blank")}
+                  >
+                    Watch
+                  </GlitchButton>
+                </div>
+              </div>
+            ))}
+          </div>
           <div className="_content">
             <img src={spider} alt="Spider" className="spider" />
             <img src={spider} alt="Spider" className="spider _2" />
