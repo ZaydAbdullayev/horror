@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import "./home.css";
 import "./components/index.scss";
-import logo from "./assets/logo.gif";
 import { GlitchButton } from "./components/button";
-import witcher from "./assets/witcher.gif";
 import bats from "./assets/bats.gif";
 import spider from "./assets/spider.gif";
 import { BiSolidCopy } from "react-icons/bi";
@@ -101,7 +99,7 @@ export const App = () => {
     <div className="wrapper">
       <div className="home-container">
         <div className="home-header">
-          <img src={logo} alt="Logo" className="home-logo" />
+          <h1 className="title-logo">ToonNightmares</h1>
           <h1>Welcome to our platform</h1>
           <h2>
             Discover the world of{" "}
